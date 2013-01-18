@@ -119,7 +119,7 @@ module Readability
     end
 
     REGEXES = {
-        :unlikelyCandidatesRe => /combx|comment|community|disqus|extra|foot|header|menu|remark|rss|shoutbox|sidebar|sponsor|ad-break|agegate|pagination|pager|popup/i,
+        :unlikelyCandidatesRe => /combx|comment|community|disqus|extra|foot|header|menu|remark|rss|shoutbox|sidebar|sponsor|ad-break|agegate|pagination|pager|popup|pseudo/i,
         :okMaybeItsACandidateRe => /and|article|body|column|main|shadow/i,
         :positiveRe => /article|body|content|entry|hentry|main|page|pagination|post|text|blog|story/i,
         :negativeRe => /combx|comment|com-|contact|foot|footer|footnote|masthead|media|meta|outbrain|promo|related|scroll|shoutbox|sidebar|sponsor|shopping|tags|tool|widget/i,
@@ -441,10 +441,10 @@ module Readability
           to_remove = false
           reason = ""
 
-          if counts["img"] > counts["p"]
-            reason = "too many images"
-            to_remove = true
-          elsif counts["li"] > counts["p"] && name != "ul" && name != "ol"
+          # if counts["img"] > counts["p"]
+          #   reason = "too many images"
+          #   to_remove = true
+          if counts["li"] > counts["p"] && name != "ul" && name != "ol"
             reason = "more <li>s than <p>s"
             to_remove = true
           elsif counts["input"] > (counts["p"] / 3).to_i
